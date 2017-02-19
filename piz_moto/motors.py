@@ -1,25 +1,6 @@
 #!/usr/bin/env python2.7
 # PiZ-Moto Motor Control Functions
 
-import RPi.GPIO as GPIO # Import the GPIO Library
-import time
-
-# Set variables for the GPIO motor pins
-pinMotorAForwards = 10
-pinMotorABackwards = 9
-pinMotorBForwards = 7
-pinMotorBBackwards = 8
-
-# How many times to turn the pin on and off each second
-Frequency = 20
-
-# How long the pin stays on each cycle, as a percent
-DutyCycleA = 100
-DutyCycleB = 100
-
-# Setting the duty cycle to 0 means the motors will not turn
-Stop = 0
-
 # Function to turn all motors off
 def Stop():
 
