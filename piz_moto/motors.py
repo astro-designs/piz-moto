@@ -2,78 +2,78 @@
 # PiZ-Moto Motor Control Functions
 
 # Function to turn all motors off
-def Stop():
+def Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards):
 
 	#print("Stop")
-	pwmMotorAForwards.ChangeDutyCycle(Stop)
-	pwmMotorABackwards.ChangeDutyCycle(Stop)
-	pwmMotorBForwards.ChangeDutyCycle(Stop)
-	pwmMotorBBackwards.ChangeDutyCycle(Stop)
+	pwmMotorAForwards.ChangeDutyCycle(0)
+	pwmMotorABackwards.ChangeDutyCycle(0)
+	pwmMotorBForwards.ChangeDutyCycle(0)
+	pwmMotorBBackwards.ChangeDutyCycle(0)
 	
 # Turn both motors backwards
-def Backwards(Speed):
+def Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed):
 
 	#print("Backwards")
-	pwmMotorAForwards.ChangeDutyCycle(DutyCycleA * Speed)
-	pwmMotorABackwards.ChangeDutyCycle(Stop)
-	pwmMotorBForwards.ChangeDutyCycle(DutyCycleB * Speed)
-	pwmMotorBBackwards.ChangeDutyCycle(Stop)
+	pwmMotorAForwards.ChangeDutyCycle(DCA * Speed)
+	pwmMotorABackwards.ChangeDutyCycle(0)
+	pwmMotorBForwards.ChangeDutyCycle(DCB * Speed)
+	pwmMotorBBackwards.ChangeDutyCycle(0)
 
 # Turn both motors forwards
-def Forwards(Speed):
+def Forwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed):
 	
 	#print("Forwards")
-	pwmMotorAForwards.ChangeDutyCycle(Stop)
-	pwmMotorABackwards.ChangeDutyCycle(DutyCycleA * Speed)
-	pwmMotorBForwards.ChangeDutyCycle(Stop)
-	pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB * Speed)
+	pwmMotorAForwards.ChangeDutyCycle(0)
+	pwmMotorABackwards.ChangeDutyCycle(DCA * Speed)
+	pwmMotorBForwards.ChangeDutyCycle(0)
+	pwmMotorBBackwards.ChangeDutyCycle(DCB * Speed)
 	
 # Spin Right
-def SpinRight(Speed):
+def SpinRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed):
 	
 	#print("Spin Right")
-	pwmMotorAForwards.ChangeDutyCycle(Stop)
-	pwmMotorABackwards.ChangeDutyCycle(DutyCycleA * Speed)
-	pwmMotorBForwards.ChangeDutyCycle(DutyCycleB * Speed)
-	pwmMotorBBackwards.ChangeDutyCycle(Stop)
+	pwmMotorAForwards.ChangeDutyCycle(0)
+	pwmMotorABackwards.ChangeDutyCycle(DCA * Speed)
+	pwmMotorBForwards.ChangeDutyCycle(DCB * Speed)
+	pwmMotorBBackwards.ChangeDutyCycle(0)
 	
-def BLeft(Speed):
+def BLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed):
 	
 	#print("Back Left")
-	pwmMotorAForwards.ChangeDutyCycle(DutyCycleA * Speed * 0.5)
-	pwmMotorABackwards.ChangeDutyCycle(Stop)
-	pwmMotorBForwards.ChangeDutyCycle(DutyCycleB * Speed)
-	pwmMotorBBackwards.ChangeDutyCycle(Stop)
+	pwmMotorAForwards.ChangeDutyCycle(DCA * Speed * 0.5)
+	pwmMotorABackwards.ChangeDutyCycle(0)
+	pwmMotorBForwards.ChangeDutyCycle(DCB * Speed)
+	pwmMotorBBackwards.ChangeDutyCycle(0)
 	
-def FLeft(Speed):
+def FLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed):
 	
 	#print("Forwards Left")
-	pwmMotorAForwards.ChangeDutyCycle(Stop)
-	pwmMotorABackwards.ChangeDutyCycle(DutyCycleA * Speed * 0.5)
-	pwmMotorBForwards.ChangeDutyCycle(Stop)
-	pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB * Speed)
+	pwmMotorAForwards.ChangeDutyCycle(0)
+	pwmMotorABackwards.ChangeDutyCycle(DCA * Speed * 0.5)
+	pwmMotorBForwards.ChangeDutyCycle(0)
+	pwmMotorBBackwards.ChangeDutyCycle(DCB * Speed)
 	
 # Spin left
-def SpinLeft(Speed):
+def SpinLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed):
 	
 	#print("Spin Left")
-	pwmMotorAForwards.ChangeDutyCycle(DutyCycleA * Speed)
-	pwmMotorABackwards.ChangeDutyCycle(Stop)
-	pwmMotorBForwards.ChangeDutyCycle(Stop)
-	pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB * Speed)
+	pwmMotorAForwards.ChangeDutyCycle(DCA * Speed)
+	pwmMotorABackwards.ChangeDutyCycle(0)
+	pwmMotorBForwards.ChangeDutyCycle(0)
+	pwmMotorBBackwards.ChangeDutyCycle(DCB * Speed)
 	
-def BRight(Speed):
+def BRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed):
 	
 	#print("Back Right")
-	pwmMotorAForwards.ChangeDutyCycle(DutyCycleA * Speed)
-	pwmMotorABackwards.ChangeDutyCycle(Stop)
-	pwmMotorBForwards.ChangeDutyCycle(DutyCycleB * Speed * 0.5)
-	pwmMotorBBackwards.ChangeDutyCycle(Stop)
+	pwmMotorAForwards.ChangeDutyCycle(DCA * Speed)
+	pwmMotorABackwards.ChangeDutyCycle(0)
+	pwmMotorBForwards.ChangeDutyCycle(DCB * Speed * 0.5)
+	pwmMotorBBackwards.ChangeDutyCycle(0)
 	
-def FRight(Speed):
+def FRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed):
 	
 	#print("Forwards Right")
-	pwmMotorAForwards.ChangeDutyCycle(Stop)
-	pwmMotorABackwards.ChangeDutyCycle(DutyCycleA * Speed)
-	pwmMotorBForwards.ChangeDutyCycle(Stop)
-	pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB * Speed * 0.5)
+	pwmMotorAForwards.ChangeDutyCycle(0)
+	pwmMotorABackwards.ChangeDutyCycle(DCA * Speed)
+	pwmMotorBForwards.ChangeDutyCycle(0)
+	pwmMotorBBackwards.ChangeDutyCycle(DCB * Speed * 0.5)

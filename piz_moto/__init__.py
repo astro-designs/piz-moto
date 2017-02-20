@@ -1,3 +1,7 @@
+import RPi.GPIO as GPIO # Import the GPIO Library
+import time
+
+
 from .motors import Stop
 from .motors import Forwards
 from .motors import Backwards
@@ -10,8 +14,7 @@ from .motors import BRight
 
 __all__ = ['Stop', 'Forwards', 'Backwards', 'SpinLeft', 'SpinRight', 'FLeft', 'FRight', 'BLeft', 'BRight']
 
-import RPi.GPIO as GPIO # Import the GPIO Library
-import time
+global pinMotorAForwards, pinMotorABackwards
 
 # Set variables for the GPIO motor pins
 pinMotorAForwards = 10
@@ -23,10 +26,67 @@ pinMotorBBackwards = 8
 Frequency = 20
 
 # How long the pin stays on each cycle, as a percent
-DutyCycleA = 100
-DutyCycleB = 100
+DCA = 100
+DCB = 100
 
-# Setting the duty cycle to 0 means the motors will not turn
-Stop = 0
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
+GPIO.setup(pinMotorAForwards, GPIO.OUT)
+GPIO.setup(pinMotorABackwards, GPIO.OUT)
+GPIO.setup(pinMotorBForwards, GPIO.OUT)
+GPIO.setup(pinMotorBBackwards, GPIO.OUT)
+
+pwmMotorAForwards = GPIO.PWM(pinMotorAForwards, Frequency)
+pwmMotorABackwards = GPIO.PWM(pinMotorABackwards, Frequency)
+pwmMotorBForwards = GPIO.PWM(pinMotorBForwards, Frequency)
+pwmMotorBBackwards = GPIO.PWM(pinMotorBBackwards, Frequency)
+
+pwmMotorAForwards.start(0)
+pwmMotorABackwards.start(0)
+pwmMotorBForwards.start(0)
+pwmMotorBBackwards.start(0)
+
+def Stop():
+	motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards)
+
+def Backwards(Speed):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+	motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+
+def Forwards(Speed):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+	motors.Forwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+
+def SpinRight(Speed):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+	motors.SpinRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+
+def BLeft(Speed):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+	motors.BLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+
+def FLeft(Speed):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+	motors.FLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+
+def SpinLeft(Speed):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+	motors.SpinLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+
+def BRight(Speed):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+	motors.BRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+
+def FRight(Speed):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+	motors.FRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
 
