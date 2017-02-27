@@ -22,6 +22,17 @@ pinMotorABackwards = 9
 pinMotorBForwards = 7
 pinMotorBBackwards = 8
 
+# Set variables for the line detector GPIO pin
+pinLineFollower = 25
+
+# Define GPIO pins to use on the Pi
+pinTrigger = 17
+pinEcho = 18
+
+# Set variable for the LED pin
+pinLED1 = 5
+pinLED2 = 6
+
 # How many times to turn the pin on and off each second
 Frequency = 20
 
