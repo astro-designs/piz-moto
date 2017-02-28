@@ -61,43 +61,68 @@ pwmMotorBBackwards.start(0)
 def Stop():
 	motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards)
 
-def Backwards(Speed):
+def Backwards(Speed, duration):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, 0)
 
-def Forwards(Speed):
+def Forwards(Speed, duration):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.Forwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.Forwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, 0)
 
-def SpinRight(Speed):
+	
+def SRight(Speed, duration):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.SpinRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.SpinRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, 0)
 
-def BLeft(Speed):
+def BLeft(Speed, duration):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.BLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.BLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, 0)
 
-def FLeft(Speed):
+def FLeft(Speed, duration):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.FLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.FLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, 0)
 
-def SpinLeft(Speed):
+def SLeft(Speed, duration):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.SpinLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.SpinLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, 0)
 
-def BRight(Speed):
+def BRight(Speed, duration):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.BRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.BRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, 0)
 
-def FRight(Speed):
+def FRight(Speed, duration):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.FRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.FRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, 0)
 
