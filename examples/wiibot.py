@@ -321,8 +321,8 @@ def do_proximity():
 	# Repeat the next indented block forever
 	while Distance > 2.7:
 
-		# Range sensors are on the back so we need to go...
-		Backwards()
+		# Start going forwards...
+		Forwards()
 	
 		# Small delay to ensure read frequency never exceeds 40Hz
 		time.sleep(0.025)
