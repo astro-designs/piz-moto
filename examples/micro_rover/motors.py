@@ -2,7 +2,7 @@
 # PiZ-Moto Motor Control Functions
 
 # Function to turn all motors off
-def Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, ):
+def Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards ):
 
 	#print("Stop")
 	pwmMotorAForwards.ChangeDutyCycle(0)

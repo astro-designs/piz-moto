@@ -96,8 +96,8 @@ def Servo1(pwm):
 	pwmServo1.ChangeDutyCycle(0)
 
 def Servo1Angle(angle):
-	if angle < -60: angle = -60
-	if angle > 60: angle = 60
+	if angle < -90: angle = -90
+	if angle > 90: angle = 90
 	angle = angle + 4
 	pulse = 1.36 + (angle * (1.9 - 0.92)/90)
 	pwm = (pulse/1000) / (0.02)
@@ -111,8 +111,8 @@ def Servo2(pwm):
 	pwmServo2.ChangeDutyCycle(0)
 
 def Servo2Angle(angle):
-	if angle < -60: angle = -60
-	if angle > 60: angle = 60
+	if angle < -90: angle = -90
+	if angle > 90: angle = 90
 	angle = angle + 1
 	pulse = 1.36 + (angle * (1.9 - 0.92)/90)
 	pwm = (pulse/1000) / (0.02)
@@ -126,9 +126,9 @@ def Servo3(pwm):
 	pwmServo3.ChangeDutyCycle(0)
 
 def Servo3Angle(angle):
-	if angle < -60: angle = -60
-	if angle > 60: angle = 60
-	angle = angle - 13
+	if angle < -90: angle = -90
+	if angle > 90: angle = 90
+	angle = angle - 0 #13
 	pulse = 1.36 + (angle * (1.9 - 0.92)/90)
 	pwm = (pulse/1000) / (0.02)
 	Servo3(pwm)
@@ -141,8 +141,8 @@ def Servo4(pwm):
 	pwmServo4.ChangeDutyCycle(0)
 
 def Servo4Angle(angle):
-	if angle < -60: angle = -60
-	if angle > 60: angle = 60
+	if angle < -90: angle = -90
+	if angle > 90: angle = 90
 	angle = angle + 0
 	pulse = 1.36 + (angle * (1.9 - 0.92)/90)
 	pwm = (pulse/1000) / (0.02)
@@ -409,4 +409,60 @@ def FRight(Speed, duration):
 	if duration > 0:
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
+
+def SlideNE(Speed, duration):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+
+	Servo1Angle(-45)
+	Servo2Angle(-45)
+	Servo3Angle(-45)
+	Servo4Angle(45)
+	
+	motors.Forwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
+
+def SlideNW(Speed, duration):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+
+	Servo1Angle(45)
+	Servo2Angle(45)
+	Servo3Angle(45)
+	Servo4Angle(-45)
+	
+	motors.Forwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
+
+def SlideSE(Speed, duration):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+
+	Servo1Angle(45)
+	Servo2Angle(45)
+	Servo3Angle(45)
+	Servo4Angle(-45)
+	
+	motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
+
+def SlideSW(Speed, duration):
+	if Speed > 1: Speed = 1
+	elif Speed < 0: Speed = 0
+
+	Servo1Angle(-45)
+	Servo2Angle(-45)
+	Servo3Angle(-45)
+	Servo4Angle(45)
+	
+	motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, Speed)
+	if duration > 0:
+		time.sleep(duration)
+		motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
 
