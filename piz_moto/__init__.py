@@ -2,6 +2,8 @@ import RPi.GPIO as GPIO # Import the GPIO Library
 import time
 
 
+from .motors import Motor1
+from .motors import Motor2
 from .motors import Stop
 from .motors import Forwards
 from .motors import Backwards
@@ -34,7 +36,7 @@ pinLED1 = 5
 pinLED2 = 6
 
 # How many times to turn the pin on and off each second
-Frequency = 20
+Frequency = 50
 
 # How long the pin stays on each cycle, as a percent
 DCA = 100
@@ -57,6 +59,18 @@ pwmMotorAForwards.start(0)
 pwmMotorABackwards.start(0)
 pwmMotorBForwards.start(0)
 pwmMotorBBackwards.start(0)
+
+def Motor1(SpeedAndDirection, duration=0):
+	motors.Motor1(SpeedAndDirection, pwmMotorAForwards, pwmMotorABackwards)
+	if duration > 0:
+		time.sleep(duration)
+		motors.MotorA(0, pwmMotorAForwards, pwmMotorABackwards)
+	
+def Motor2(SpeedAndDirection, duration=0):
+	motors.Motor2(SpeedAndDirection, pwmMotorBForwards, pwmMotorBBackwards)
+	if duration > 0:
+		time.sleep(duration)
+		motors.MotorB(0, pwmMotorBForwards, pwmMotorBBackwards)
 
 def Stop():
 	motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards)

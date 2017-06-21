@@ -206,7 +206,7 @@ def GetSpeed_o(radius):
 	return 1
 
 
-def Stop():
+def HomePos():
 	Servo1Angle(0)
 	Servo2Angle(0)
 	Servo3Angle(0)
@@ -214,7 +214,11 @@ def Stop():
 
 	motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
 
-def Backwards(Speed, duration):
+def Stop():
+
+	motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
+
+def Backwards(Speed, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 
@@ -228,7 +232,7 @@ def Backwards(Speed, duration):
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
 
-def Forwards(Speed, duration):
+def Forwards(Speed, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 
@@ -350,7 +354,7 @@ def BRightR(Speed, duration, radius):
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
 
-def SRight(Speed, duration):
+def SRight(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 
@@ -364,7 +368,7 @@ def SRight(Speed, duration):
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
 
-def BLeft(Speed, duration):
+def BLeft(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.BLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, Speed)
@@ -372,7 +376,7 @@ def BLeft(Speed, duration):
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
 
-def FLeft(Speed, duration):
+def FLeft(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.FLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, Speed)
@@ -380,7 +384,7 @@ def FLeft(Speed, duration):
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
 
-def SLeft(Speed, duration):
+def SLeft(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 
@@ -394,7 +398,7 @@ def SLeft(Speed, duration):
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
 
-def BRight(Speed, duration):
+def BRight(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.BRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, Speed)
@@ -402,7 +406,7 @@ def BRight(Speed, duration):
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
 
-def FRight(Speed, duration):
+def FRight(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.FRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, Speed)
@@ -410,7 +414,7 @@ def FRight(Speed, duration):
 		time.sleep(duration)
 		motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards, 0)
 
-def SlideNE(Speed, duration):
+def SlideNE(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 
@@ -424,7 +428,7 @@ def SlideNE(Speed, duration):
 		time.sleep(duration)
 		motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
 
-def SlideNW(Speed, duration):
+def SlideNW(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 
@@ -438,7 +442,7 @@ def SlideNW(Speed, duration):
 		time.sleep(duration)
 		motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
 
-def SlideSE(Speed, duration):
+def SlideSE(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 
@@ -452,7 +456,7 @@ def SlideSE(Speed, duration):
 		time.sleep(duration)
 		motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, pwmMotorCForwards, pwmMotorCBackwards, pwmMotorDForwards, pwmMotorDBackwards)
 
-def SlideSW(Speed, duration):
+def SlideSW(Speed=1, duration=0):
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 
