@@ -32,7 +32,10 @@
 ###piz_moto.Motor1(0)
 ###piz_moto.Motor2(0)
 
-
+# Important delay - for some reason if this delay isn't here
+# the motors don't stop.
+# I suspect the program needs a cleaner exit
+###time.sleep(1)
 
 
 
