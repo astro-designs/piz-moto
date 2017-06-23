@@ -64,13 +64,13 @@ def Motor1(SpeedAndDirection, duration=0):
 	motors.Motor1(SpeedAndDirection, pwmMotorAForwards, pwmMotorABackwards)
 	if duration > 0:
 		time.sleep(duration)
-		motors.MotorA(0, pwmMotorAForwards, pwmMotorABackwards)
+		motors.Motor1(0, pwmMotorAForwards, pwmMotorABackwards)
 	
 def Motor2(SpeedAndDirection, duration=0):
 	motors.Motor2(SpeedAndDirection, pwmMotorBForwards, pwmMotorBBackwards)
 	if duration > 0:
 		time.sleep(duration)
-		motors.MotorB(0, pwmMotorBForwards, pwmMotorBBackwards)
+		motors.Motor2(0, pwmMotorBForwards, pwmMotorBBackwards)
 
 def Stop():
 	motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards)
