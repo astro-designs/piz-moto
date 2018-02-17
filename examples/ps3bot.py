@@ -72,7 +72,7 @@ GPIO.output(pinMotorB2, False)
 # Set the pinLineFollower pin as an input so its value can be read
 GPIO.setup(pinLineFollower, GPIO.IN)
 
-# pygame controller constants
+# pygame controller constants (Rock Candy Controller)
 JoyButton_Square = 0
 JoyButton_X = 1
 JoyButton_Circle = 2
@@ -90,6 +90,27 @@ axisUpDown = 1                          # Joystick axis to read for up / down po
 axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
 axisLeftRight = 0                       # Joystick axis to read for left / right position
 axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
+
+# pygame controller constants (ShanWan PC/PS3/Android)
+JoyButton_A = 0
+JoyButton_B = 1
+JoyButton_X = 3
+JoyButton_Y = 4
+JoyButton_R1 = 7
+JoyButton_L1 = 6
+JoyButton_R2 = 9
+JoyButton_L2 = 8
+JoyButton_Select = 10
+JoyButton_Start = 11
+JoyButton_L3 = 13
+JoyButton_R3 = 14
+axisUpDown = 1                          # Joystick axis to read for up / down position
+axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
+axisLeftRight = 0                       # Joystick axis to read for left / right position
+axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
+JoyButton_Circle = 999                  # Not supported on this controller
+JoyButton_Home = 999                    # Not supported on this controller
+
 interval = 0.00                         # Time between keyboard updates in seconds, smaller responds faster but uses more processor time
 
 
