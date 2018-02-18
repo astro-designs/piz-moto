@@ -1,1 +1,43 @@
 Work in progress...
+
+1) Print the components that make up the 'Bot4' chassis and parts
+
+2) Solder wires to the motors
+   Pass the motor wires through the holes in the side and out of the fiddly small hole inside
+   Glue the motors in place, taking care not to get any glue on the gears. Recommedn a small qty of rapid-set epoxy resin glue or hot-melt glue.
+   Note - make sure the motor wires are long enough to connect to the motor driver board once it's all assembled.
+
+3) Glue the BallFoot onto the front section of the base of the chassis. There are two holes that line up with two holes in the BallFoot, these can be used to screw the ball foot in place using M2 x 6mm pan-head screws. A little glue may be needed to glue the screw threads into the BallFoot part as there is no thread.
+
+4) Glue the slide switch (optional part) onto the back of the 'Bot4' chassis so that the switch protrudes out through the hole in the back and can slide fully both ways. I recommend rapid-set 2-part epoxy resin glue or hot-melt glue.
+
+5) (optional - if using the slide switch) Solder the red wire from the battery clip to the centre pin of the slide switch
+
+6) (optional - if using the slide switch) Solder a second red wide from one of the outer terminals of the slide switch
+
+7) Screw the red wire from the slide switch (if using the switch) or the red wide from the batter clip (if not using the slide switch) to the positive battery terminal on the PiZ-Moto motor driver.
+
+8) screw the black wire from the battery clip to the negative battery terminal on the PiZ-Moto motor driver.
+
+9) Screw the motor wires to the two pairs of motor terminals on the PiZ-Moto board. Check the PiZ-Moto instructions for information on which conenctor to use for which motor.
+
+10) Solder the 40-pin header onto the Raspberry Pi if it's not already fitted.
+
+11) Plug the PiZ-Moto into the Raspberry Pi.
+
+12) Assemble the Raspberry Pi with the PiZ-Moto driver board into the Bot4 chassis.
+
+13) Plug the SDCard into the Raspberry Pi
+
+14) Plug the wireless dongle for the PS3 controller into the Raspberry Pi USB port.
+    Alternatively, plug a Bluetooth 'dongle' into the Raspberry Pi USB port if using a WiiMote or other Bluetooth based controller
+
+15) Push the wheels onto the motors...
+    Note: It's sometimes easier to test the Bot without the wheels attached. That way it won't roll itself off the table if you accidentally get the controls wrong...
+
+16) Connect the battery...
+
+At this point, what happens next depends on what's on your SD Card... If you're working from a fresh installation of Raspbian then there's probably some further setup required and you'll probably need to connect a monitor to the Raspberry Pi.
+
+But if it's all ready to go and you run the ps3bot.py program at boot-up then after about 60s you should be able to press the home key on the PS3 controller and you should have control of the Bot.
+
