@@ -1,1 +1,61 @@
-Work in progress...
+Parts list for Micro-Pi Noon fighting robot
+*******************************************
+
+1) Raspberry Pi Zero, Zero W, Zero WH Note: Header needs to be fitted. (Works with any revision / version)
+2) PiZ-Moto motor controller board / kit;
+3) Motors - 50:1 or 298:1 micro geared 6V motor.
+   https://shop.pimoroni.com/products/micro-metal-gearmotor-extended-back-shaft
+   or similar
+4) PP3 Battery clip with wires attached
+   https://shop.pimoroni.com/products/pp3-battery-snap
+   or similar
+5) Battery holder
+   http://uk.farnell.com/keystone/2476/battery-holder-a-aa-snap-in/dp/2293271?st=aa%20battery%20holder%204
+   or similar
+6) M3 x 20 pan head screw (x4)
+7) M3 full nut (x4)
+8) A pin
+   approx 20mm long with the head cut off. A small cork is recommended for safety...
+9) Wheels - Polulo are good for these:
+   https://shop.pimoroni.com/products/pololu-wheel-42x19mm-pair
+   https://shop.pimoroni.com/products/moon-buggy-wheels-pair
+   https://shop.pimoroni.com/products/pololu-wheel-32x7mm-pair
+10) 8GB micro SD Card
+11) Wireless PS3 controller
+    Rock Candy or similar work well.
+
+Note:
+You will also need:
+
+Insulated wire to solder to the micro motors.
+   About 4 lengths of 10cm, preferably two in one colour and two in a different colour
+   More may be needed if you opt for using a switch (see optional items below) to switch the power on/off.
+
+3D printed parts:
+*****************
+
+1) BOT4 Chassis.stl - This is the main chassis;
+2) BallFoot.stl - This is the non-rotating simple ball-castor alternative used to support the front of the 'bot';
+3) BalloonMast.stl - this is the pole at the back of the bot that holds the baloon;
+4) BalloonHolder.stl - this is the quick-release balloon holder;
+5) Spike - this is the arm that extends forward over the 'bot' and carries the pin;
+6) SpikeHolder.stl - this is a small clamp that holds the spike and baloon holder onto the baloon mast;
+7) Bot4_Lid.stl - this is a simple clip-on lid that can act as a cover over everything. 
+
+Optional:
+a) Polulo #953 metal ball-castor. Optional replacement for 3D printed solid non-moving front 'foot'
+   https://shop.pimoroni.com/products/pololu-ball-caster-with-3-4-metal-ball
+
+b) Sliding power switch
+   http://uk.farnell.com/knitter-switch/mfs131d/switch-spdt-0-35a-30vdc-solder/dp/219459?st=Slide%20switch
+   or similar (check dimensions match the slide switch hole on the 'BOT4' 3D printed chassis
+
+Tools required:
+***************
+
+1) Soldering iron - a good one with a fine tip. Suitable for lead-free solder
+   Lead-free solder. Reasonably fine 0.5mm - 1mm
+
+2) Screwdrivers to match the screws used
+3) M3 spanner or nut-spinner - or a pair of pliers...
+3) Cutters, pliers
