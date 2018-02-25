@@ -25,7 +25,20 @@ Last tested with Raspbian Stretch 2017-09-07
 
    sudo python setup.py install
    
-This completes the installation.
+This completes the basic installation.
+
+Using a PS3 controller
+**********************
+(Apologies for missing this bit out previously)
+
+Based on: https://www.piborg.org/blog/rpi-ps3-help
+
+sudo apt-get -y install libusb-dev joystick python-pygame
+cd ~
+wget http://www.pabr.org/sixlinux/sixpair.c
+gcc -o sixpair sixpair.c -lusb
+
+I think that's it... I need to test this.
 
 
 Documentation
