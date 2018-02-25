@@ -33,12 +33,15 @@ Using a PS3 controller
 
 Based on: https://www.piborg.org/blog/rpi-ps3-help
 
+sudo apt-get update
+
 sudo apt-get -y install libusb-dev joystick python-pygame
 cd ~
 wget http://www.pabr.org/sixlinux/sixpair.c
 gcc -o sixpair sixpair.c -lusb
 
-I think that's it... I need to test this.
+I think that's it...
+It worked with the two PS3 controllers I use which include a Rock Candy wireless controller and an ultra-cheap wireless controller found on ebay.
 
 
 Documentation
