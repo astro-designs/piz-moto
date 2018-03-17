@@ -22,11 +22,24 @@ pinMotorABackwards = 9
 pinMotorBForwards = 7
 pinMotorBBackwards = 8
 
+# Optional pin-out in case motors are swapped left-to-right
+#pinMotorBForwards = 10
+#pinMotorBBackwards = 9
+#pinMotorAForwards = 7
+#pinMotorABackwards = 8
+
 # Set additional variables for second PiZ-Moto board
 pinMotorA1 = 4
 pinMotorA2 = 27
 pinMotorB2 = 22
 pinMotorB1 = 23
+
+# Options to switch motors around...
+# In case wires get swapped...
+# Work in progress, not yet working
+SwapMotors = False
+ReverseLeftMotor = False
+ReverseRightMotor = False
 
 # Set variables for the line detector GPIO pin
 pinLineFollower = 25
