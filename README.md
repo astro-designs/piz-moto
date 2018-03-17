@@ -75,3 +75,15 @@ http://cotswoldjam.org/downloads/2017-06/motor-control-worksheet.pdf
 tutorial/task1.py
 tutorial/task2.py
 tutorial/task3.py
+
+
+3D Printable MicroPiNoon 'Bot
+*****************************
+
+We've included all files, including STL files and the Sketchup model for our 3D-printed MicroPiNoon
+MicroPiNoon compatible balloon-popping robots. These are a regular feature at the Cotswold Raspberry Jam
+
+MicroPiNoon/3D_Printing - stl files
+MicroPiNoon/Bot4.jpg    - Simple render of the completed robot
+MicroPiNoon/Instructions.txt    - Assembly instructions
+MicroPiNoon/PartsList.txt       - List of parts needed for the robot
