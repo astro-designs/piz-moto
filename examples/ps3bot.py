@@ -3,7 +3,8 @@
 # MatchBot Control
 # Line-follower
 # Proximity
-# Added Wii Remote Interface
+# Wii Remote Interface superseeded with...
+# Wireless PS3 controller interface
 
 import RPi.GPIO as GPIO # Import the GPIO Library
 import pygame
@@ -85,47 +86,7 @@ GPIO.output(pinMotorB2, False)
 # Set the pinLineFollower pin as an input so its value can be read
 GPIO.setup(pinLineFollower, GPIO.IN)
 
-# pygame controller constants (Rock Candy Controller)
-JoyButton_Square = 0
-JoyButton_X = 1
-JoyButton_Circle = 2
-JoyButton_Triangle = 3
-JoyButton_L1 = 4
-JoyButton_R1 = 5
-JoyButton_L2 = 6
-JoyButton_R2 = 7
-JoyButton_Select = 8
-JoyButton_Start = 9
-JoyButton_L3 = 10
-JoyButton_R3 = 11
-JoyButton_Home = 12
-axisUpDown = 1                          # Joystick axis to read for up / down position
-axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
-axisLeftRight = 0                       # Joystick axis to read for left / right position
-axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
-
-# pygame controller constants (ShanWan PC/PS3/Android)
-JoyButton_A = 0
-JoyButton_B = 1
-JoyButton_X = 3
-JoyButton_Y = 4
-JoyButton_R1 = 7
-JoyButton_L1 = 6
-JoyButton_R2 = 9
-JoyButton_L2 = 8
-JoyButton_Select = 10
-JoyButton_Start = 11
-JoyButton_L3 = 13
-JoyButton_R3 = 14
-axisUpDown = 1                          # Joystick axis to read for up / down position
-axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
-axisLeftRight = 0                       # Joystick axis to read for left / right position
-axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
-JoyButton_Circle = 999                  # Not supported on this controller
-JoyButton_Home = 999                    # Not supported on this controller
-
 interval = 0.00                         # Time between keyboard updates in seconds, smaller responds faster but uses more processor time
-
 
 # Setup pygame and key states
 global hadEvent
@@ -148,6 +109,9 @@ global XButton
 global HomeButton
 global StartButton
 global SelectButton
+global YButton
+global AButton
+global BButton
 global R1Button
 global R2Button
 global R3Button
@@ -172,6 +136,9 @@ TriangleButton = False
 SquareButton = False
 CircleButton = False
 XButton = False
+YButton = False
+AButton = False
+BButton = False
 HomeButton = False
 StartButton = False
 SelectButton = False
@@ -217,6 +184,57 @@ print 'Joystick found'
 joystick.init()
 
 print 'Initialised Joystick : %s' % joystick.get_name()
+
+if "Rock Candy" in joystick.get_name():
+    print ("Found Rock Candy Wireless PS3 controller")
+    # pygame controller constants (Rock Candy Controller)
+    JoyButton_Square = 0
+    JoyButton_X = 1
+    JoyButton_Circle = 2
+    JoyButton_Triangle = 3
+    JoyButton_L1 = 4
+    JoyButton_R1 = 5
+    JoyButton_L2 = 6
+    JoyButton_R2 = 7
+    JoyButton_Select = 8
+    JoyButton_Start = 9
+    JoyButton_L3 = 10
+    JoyButton_R3 = 11
+    JoyButton_Home = 12
+    axisUpDown = 1                          # Joystick axis to read for up / down position
+    axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
+    axisLeftRight = 0                       # Joystick axis to read for left / right position
+    axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
+    # These buttons do not exist for this controller...
+    # So map to compatible positions
+    JoyButton_A = 999                       # Not supported on this controller
+    JoyButton_B = 999                       # Not supported on this controller
+    JoyButton_Y = 999                       # Not supported on this controller
+else:
+    print (" The other cheap Wireless PS3 controller")
+    # pygame controller constants (ShanWan PC/PS3/Android)
+    JoyButton_A = 0
+    JoyButton_B = 1
+    JoyButton_X = 3
+    JoyButton_Y = 4
+    JoyButton_R1 = 7
+    JoyButton_L1 = 6
+    JoyButton_R2 = 9
+    JoyButton_L2 = 8
+    JoyButton_Select = 10
+    JoyButton_Start = 11
+    JoyButton_L3 = 13
+    JoyButton_R3 = 14
+    axisUpDown = 1                          # Joystick axis to read for up / down position
+    axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
+    axisLeftRight = 0                       # Joystick axis to read for left / right position
+    axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
+    # These buttons do not exist for this controller...
+    JoyButton_Square = 999                  # Not supported on this controller
+    JoyButton_Circle = 999                  # Not supported on this controller
+    JoyButton_Triangle = 999                # Not supported on this controller
+    JoyButton_Home = 999                    # Not supported on this controller
+
 
 # Check number of joysticks in use...
 joystick_count = pygame.joystick.get_count()
@@ -541,6 +559,9 @@ def PygameHandler(events):
     global SquareButton
     global CircleButton
     global XButton
+    global YButton
+    global AButton
+    global BButton
     global HomeButton
     global StartButton
     global SelectButton
@@ -594,6 +615,12 @@ def PygameHandler(events):
                 CircleButton = True
             elif event.button == JoyButton_Triangle:
                 TriangleButton = True
+            elif event.button == JoyButton_Y:
+                YButton = True
+            elif event.button == JoyButton_A:
+                AButton = True
+            elif event.button == JoyButton_B:
+                BButton = True
             elif event.button == JoyButton_L1:
                 L1Button = True
             elif event.button == JoyButton_R1:
@@ -624,6 +651,12 @@ def PygameHandler(events):
                 CircleButton = False
             elif event.button == JoyButton_Triangle:
                 TriangleButton = False
+            elif event.button == JoyButton_Y:
+                YButton = False
+            elif event.button == JoyButton_A:
+                AButton = False
+            elif event.button == JoyButton_B:
+                BButton = False
             elif event.button == JoyButton_L1:
                 L1Button = False
             elif event.button == JoyButton_R1:
@@ -708,7 +741,7 @@ time.sleep(0.5)
 
 
 try:
-    print 'Press [ESC] to quit'
+    print 'Press Ctrl-C to quit'
     # Loop indefinitely
     while True:
         # Get the currently pressed keys on the keyboard
@@ -718,13 +751,32 @@ try:
             hadEvent = False
             if moveQuit:
                 break
-            elif HomeButton and CircleButton: # Shutdown
+            elif SelectButton and CircleButton: # Shutdown
                 print ("Halting Raspberry Pi...")
                 GPIO.cleanup()
                 bashCommand = ("sudo halt")
                 os.system(bashCommand)
                 break
-            elif HomeButton and XButton: # Exit
+            elif SelectButton and BButton: # Shutdown
+                print ("Halting Raspberry Pi...")
+                GPIO.cleanup()
+                bashCommand = ("sudo halt")
+                os.system(bashCommand)
+                break
+            elif SelectButton and TriangleButton: # Reboot
+                print ("Rebooting Raspberry Pi...")
+                GPIO.cleanup()
+                bashCommand = ("sudo reboot now")
+                os.system(bashCommand)
+                break
+            elif SelectButton and YButton: # Reboot
+                print ("Rebooting Raspberry Pi...")
+                GPIO.cleanup()
+                bashCommand = ("sudo reboot now")
+                os.system(bashCommand)
+                break
+            elif SelectButton and XButton: # Exit
+                print ("Exiting program...")
                 break
             elif StartButton and CircleButton: 
                 print ("Start Line-follower")
@@ -735,8 +787,10 @@ try:
             elif StartButton and XButton: 
                 print ("Start Avoidance")
                 #do_proximity()
-            elif SelectButton:
-                print ("Select")
+            #elif SelectButton:
+            #    print ("Select")
+            #elif StartButton:
+            #    print ("Start")
             elif SquareButton:
                 print ("Square")
             elif XButton:
@@ -745,6 +799,12 @@ try:
                 print ("Circle")
             elif TriangleButton:
                 print ("Triangle")
+            elif YButton:
+                print ("Y")
+            elif AButton:
+                print ("A")
+            elif BButton:
+                print ("B")
             elif L1Button:
                 print ("L1")
             elif R1Button:
@@ -757,6 +817,14 @@ try:
                 print ("L3")
             elif R3Button:
                 print ("R3")
+            elif LeftStickLeft and LeftStickUp:
+                FLeft()
+            elif LeftStickLeft and LeftStickDown:
+                BLeft()
+            elif LeftStickRight and LeftStickUp:
+                FRight()
+            elif LeftStickRight and LeftStickDown:
+                BRight()
             elif LeftStickLeft:
                 Left()
             elif LeftStickRight:
@@ -773,19 +841,25 @@ try:
                 print ("Right Stick Up")
             elif RightStickDown:
                 print ("Right Stick Down")
-            elif HatStickLeft:
+            
+            if HatStickLeft:
+                Left()
                 print ("Hat Left")
             elif HatStickRight:
+                Right()
                 print ("Hat Right")
             elif HatStickUp:
+                Forwards()
                 print ("Hat Up")
             elif HatStickDown:
                 print ("Hat Down")
-            if not LeftStickLeft and not LeftStickRight and not LeftStickUp and not LeftStickDown:
+                Backwards()
+            
+            if not LeftStickLeft and not LeftStickRight and not LeftStickUp and not LeftStickDown and not HatStickLeft and not HatStickRight and not HatStickUp and not HatStickDown:
                 StopMotors()
         time.sleep(interval)
     # Disable all drives
-    StopMotors()    
+    StopMotors()
 # If you press CTRL+C, cleanup and stop
 except KeyboardInterrupt:
     # Reset GPIO settings
