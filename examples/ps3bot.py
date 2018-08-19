@@ -23,17 +23,11 @@ pinMotorABackwards = 9
 pinMotorBForwards = 7
 pinMotorBBackwards = 8
 
-# Optional pin-out in case motors are swapped left-to-right
-#pinMotorBForwards = 10
-#pinMotorBBackwards = 9
-#pinMotorAForwards = 7
-#pinMotorABackwards = 8
-
 # Set additional variables for second PiZ-Moto board
-pinMotorA1 = 4
-pinMotorA2 = 27
-pinMotorB2 = 22
-pinMotorB1 = 23
+pinMotorCForwards = 4
+pinMotorCBackwards = 27
+pinMotorDForwards = 22
+pinMotorDBackwards = 23
 
 # Options to switch motors around...
 # In case wires get swapped...
@@ -686,11 +680,11 @@ def PygameHandler(events):
             if axisLeftRightInverted:
                 leftRight = -leftRight
             # Determine Up / Down values
-            if upDown < -0.1:
+            if upDown < -0.5:
                 print ("LeftStickUp")
                 LeftStickUp = True
                 LeftStickDown = False
-            elif upDown > 0.1:
+            elif upDown > 0.5:
                 print ("LeftStickDown")
                 LeftStickUp = False
                 LeftStickDown = True
@@ -698,11 +692,11 @@ def PygameHandler(events):
                 LeftStickUp = False
                 LeftStickDown = False
             # Determine Left / Right values
-            if leftRight < -0.1:
+            if leftRight < -0.5:
                 print ("LeftStickLeft")
                 LeftStickLeft = True
                 LeftStickRight = False
-            elif leftRight > 0.1:
+            elif leftRight > 0.5:
                 print ("LeftStickRight")
                 LeftStickLeft = False
                 LeftStickRight = True
