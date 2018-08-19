@@ -48,7 +48,7 @@ pinLED1 = 5
 pinLED2 = 6
 
 # How many times to turn the pin on and off each second
-Frequency = 20
+Frequency = 50
 # How long the pin stays on each cycle, as a percent
 DutyCycleA = 100
 DutyCycleB = 100
@@ -56,7 +56,7 @@ DutyCycleB = 100
 Stop = 0
 
 # Define a global variable to define a slower speed for turning
-TurnDC = 0.4
+TurnDC = 0.5
 
 # Define a global variable to control limit initial acceleration
 SpeedRamp = 0.5
@@ -67,15 +67,15 @@ GPIO.setup(pinMotorABackwards, GPIO.OUT)
 GPIO.setup(pinMotorBForwards, GPIO.OUT)
 GPIO.setup(pinMotorBBackwards, GPIO.OUT)
 
-GPIO.setup(pinMotorA1, GPIO.OUT)
-GPIO.setup(pinMotorA2, GPIO.OUT)
-GPIO.setup(pinMotorB1, GPIO.OUT)
-GPIO.setup(pinMotorB2, GPIO.OUT)
+#GPIO.setup(pinMotorA1, GPIO.OUT)
+#GPIO.setup(pinMotorA2, GPIO.OUT)
+#GPIO.setup(pinMotorB1, GPIO.OUT)
+#GPIO.setup(pinMotorB2, GPIO.OUT)
 
-GPIO.output(pinMotorA1, False)
-GPIO.output(pinMotorA2, False)
-GPIO.output(pinMotorB1, False)
-GPIO.output(pinMotorB2, False)
+#GPIO.output(pinMotorA1, False)
+#GPIO.output(pinMotorA2, False)
+#GPIO.output(pinMotorB1, False)
+#GPIO.output(pinMotorB2, False)
 
 # Set the pinLineFollower pin as an input so its value can be read
 GPIO.setup(pinLineFollower, GPIO.IN)
@@ -144,6 +144,9 @@ L2Button = False
 L3Button = False
 moveQuit = False
 
+global stick
+stick = "Left"
+
 # Needed to allow PyGame to work without a monitor
 os.environ["SDL_VIDEODRIVER"]= "dummy"
 
@@ -196,8 +199,10 @@ if "Rock Candy" in joystick.get_name():
     JoyButton_R3 = 11
     JoyButton_Home = 12
     axisUpDown = 1                          # Joystick axis to read for up / down position
+    RightaxisUpDown = 3                     # Joystick axis to read for up / down position
     axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
     axisLeftRight = 0                       # Joystick axis to read for left / right position
+    RightaxisLeftRight = 2                  # Joystick axis to read for left / right position
     axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
     # These buttons do not exist for this controller...
     # So map to compatible positions
@@ -220,8 +225,10 @@ else:
     JoyButton_L3 = 13
     JoyButton_R3 = 14
     axisUpDown = 1                          # Joystick axis to read for up / down position
+    RightaxisUpDown = 3                     # Joystick axis to read for up / down position
     axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
     axisLeftRight = 0                       # Joystick axis to read for left / right position
+    RightaxisLeftRight = 2                  # Joystick axis to read for left / right position
     axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
     # These buttons do not exist for this controller...
     JoyButton_Square = 999                  # Not supported on this controller
@@ -264,10 +271,10 @@ def StopMotors():
     GPIO.output(pinLED1, False)
     GPIO.output(pinLED2, False)
 
-    GPIO.output(pinMotorA1, False)
-    GPIO.output(pinMotorA2, False)
-    GPIO.output(pinMotorB1, False)
-    GPIO.output(pinMotorB2, False)
+    #GPIO.output(pinMotorA1, False)
+    #GPIO.output(pinMotorA2, False)
+    #GPIO.output(pinMotorB1, False)
+    #GPIO.output(pinMotorB2, False)
     
 # Turn both motors backwards
 def Backwards():
@@ -278,10 +285,10 @@ def Backwards():
     GPIO.output(pinLED1, False)
     GPIO.output(pinLED2, False)
     
-    GPIO.output(pinMotorA1, False)
-    GPIO.output(pinMotorA2, True)
-    GPIO.output(pinMotorB1, False)
-    GPIO.output(pinMotorB2, True)
+    #GPIO.output(pinMotorA1, False)
+    #GPIO.output(pinMotorA2, True)
+    #GPIO.output(pinMotorB1, False)
+    #GPIO.output(pinMotorB2, True)
 
 # Turn both motors forwards
 def Forwards():
@@ -292,10 +299,10 @@ def Forwards():
     GPIO.output(pinLED1, True)
     GPIO.output(pinLED2, True)
     
-    GPIO.output(pinMotorA1, True)
-    GPIO.output(pinMotorA2, False)
-    GPIO.output(pinMotorB1, True)
-    GPIO.output(pinMotorB2, False)
+    #GPIO.output(pinMotorA1, True)
+    #GPIO.output(pinMotorA2, False)
+    #GPIO.output(pinMotorB1, True)
+    #GPIO.output(pinMotorB2, False)
 
 # Turn Right
 def Right():
@@ -309,10 +316,10 @@ def Right():
     GPIO.output(pinLED1, True)
     GPIO.output(pinLED2, False)
     
-    GPIO.output(pinMotorA1, True)
-    GPIO.output(pinMotorA2, False)
-    GPIO.output(pinMotorB1, False)
-    GPIO.output(pinMotorB2, True)
+    #GPIO.output(pinMotorA1, True)
+    #GPIO.output(pinMotorA2, False)
+    #GPIO.output(pinMotorB1, False)
+    #GPIO.output(pinMotorB2, True)
 
 def BLeft():
     global TurnDC
@@ -324,10 +331,10 @@ def BLeft():
     pwmMotorBBackwards.ChangeDutyCycle(Stop)
     GPIO.output(pinLED1, True)
     
-    GPIO.output(pinMotorA1, True)
-    GPIO.output(pinMotorA2, False)
-    GPIO.output(pinMotorB1, False)
-    GPIO.output(pinMotorB2, True)
+    #GPIO.output(pinMotorA1, True)
+    #GPIO.output(pinMotorA2, False)
+    #GPIO.output(pinMotorB1, False)
+    #GPIO.output(pinMotorB2, True)
 
 def FLeft():
     global TurnDC
@@ -339,10 +346,10 @@ def FLeft():
     pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB)
     GPIO.output(pinLED1, True)
     
-    GPIO.output(pinMotorA1, True)
-    GPIO.output(pinMotorA2, False)
-    GPIO.output(pinMotorB1, False)
-    GPIO.output(pinMotorB2, True)
+    #GPIO.output(pinMotorA1, True)
+    #GPIO.output(pinMotorA2, False)
+    #GPIO.output(pinMotorB1, False)
+    #GPIO.output(pinMotorB2, True)
 
 # Turn left
 def Left():
@@ -356,10 +363,10 @@ def Left():
     GPIO.output(pinLED1, False)
     GPIO.output(pinLED2, True)
     
-    GPIO.output(pinMotorA1, False)
-    GPIO.output(pinMotorA2, True)
-    GPIO.output(pinMotorB1, True)
-    GPIO.output(pinMotorB2, False)
+    #GPIO.output(pinMotorA1, False)
+    #GPIO.output(pinMotorA2, True)
+    #GPIO.output(pinMotorB1, True)
+    #GPIO.output(pinMotorB2, False)
 
 def BRight():
     global TurnDC
@@ -371,10 +378,10 @@ def BRight():
     pwmMotorBBackwards.ChangeDutyCycle(Stop)
     GPIO.output(pinLED1, False)
     
-    GPIO.output(pinMotorA1, False)
-    GPIO.output(pinMotorA2, True)
-    GPIO.output(pinMotorB1, True)
-    GPIO.output(pinMotorB2, False)
+    #GPIO.output(pinMotorA1, False)
+    #GPIO.output(pinMotorA2, True)
+    #GPIO.output(pinMotorB1, True)
+    #GPIO.output(pinMotorB2, False)
 
 def FRight():
     global TurnDC
@@ -386,10 +393,10 @@ def FRight():
     pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB * TurnDC)
     GPIO.output(pinLED1, False)
     
-    GPIO.output(pinMotorA1, False)
-    GPIO.output(pinMotorA2, True)
-    GPIO.output(pinMotorB1, True)
-    GPIO.output(pinMotorB2, False)
+    #GPIO.output(pinMotorA1, False)
+    #GPIO.output(pinMotorA2, True)
+    #GPIO.output(pinMotorB1, True)
+    #GPIO.output(pinMotorB2, False)
 
 # Return True if the line detector is over a black line
 def IsOverBlack():
@@ -674,12 +681,14 @@ def PygameHandler(events):
             hadEvent = True
             upDown = joystick.get_axis(axisUpDown)
             leftRight = joystick.get_axis(axisLeftRight)
+            RightUpDown = joystick.get_axis(RightaxisUpDown)
+            RightLeftRight = joystick.get_axis(RightaxisLeftRight)
             # Invert any axes which are incorrect
             if axisUpDownInverted:
                 upDown = -upDown
             if axisLeftRightInverted:
                 leftRight = -leftRight
-            # Determine Up / Down values
+            # Determine Up / Down values for Left Stick
             if upDown < -0.5:
                 print ("LeftStickUp")
                 LeftStickUp = True
@@ -691,7 +700,19 @@ def PygameHandler(events):
             else:
                 LeftStickUp = False
                 LeftStickDown = False
-            # Determine Left / Right values
+            # Determine Up / Down values for Right Stick
+            if RightUpDown < -0.5:
+                print ("RightStickUp")
+                RightStickUp = True
+                RightStickDown = False
+            elif RightUpDown > 0.5:
+                print ("RightStickDown")
+                RightStickUp = False
+                RightStickDown = True
+            else:
+                RightStickUp = False
+                RightStickDown = False
+            # Determine Left / Right values for Left Stick
             if leftRight < -0.5:
                 print ("LeftStickLeft")
                 LeftStickLeft = True
@@ -703,6 +724,18 @@ def PygameHandler(events):
             else:
                 LeftStickLeft = False
                 LeftStickRight = False
+            # Determine Left / Right values for Right Stick
+            if RightLeftRight < -0.5:
+                print ("RightStickLeft")
+                RightStickLeft = True
+                RightStickRight = False
+            elif RightLeftRight > 0.5:
+                print ("RightStickRight")
+                RightStickLeft = False
+                RightStickRight = True
+            else:
+                RightStickLeft = False
+                RightStickRight = False
 
         
 print("Starting PS3Bot - entering control loop...")
@@ -801,40 +834,66 @@ try:
                 print ("B")
             elif L1Button:
                 print ("L1")
+                if DutyCycleA < 100:
+                   DutyCycleA = DutyCycleA + 10
+                if DutyCycleB < 100:
+                   DutyCycleB = DutyCycleB + 10
+                DutyCycleA = min(DutyCycleA, 100)
+                DutyCycleB = min(DutyCycleB, 100)
+                print "Speed: ", DutyCycleA, DutyCycleB
             elif R1Button:
                 print ("R1")
             elif L2Button:
                 print ("L2")
+                if DutyCycleA > 0:
+                   DutyCycleA = DutyCycleA - 10
+                if DutyCycleB > 0:
+                   DutyCycleB = DutyCycleB - 10
+                DutyCycleA = max(DutyCycleA, 0)
+                DutyCycleB = max(DutyCycleB, 0)
+                print "Speed: ", DutyCycleA, DutyCycleB
             elif R2Button:
                 print ("R2")
             elif L3Button:
                 print ("L3")
+                print "Switching to Left Stick"
+                stick = "Left"
             elif R3Button:
                 print ("R3")
-            elif LeftStickLeft and LeftStickUp:
+                print "Switching to Right Stick"
+                stick = "Right"
+            elif LeftStickLeft and LeftStickUp and stick == "Left":
                 FLeft()
-            elif LeftStickLeft and LeftStickDown:
+            elif LeftStickLeft and LeftStickDown and stick == "Left":
                 BLeft()
-            elif LeftStickRight and LeftStickUp:
+            elif LeftStickRight and LeftStickUp and stick == "Left":
                 FRight()
-            elif LeftStickRight and LeftStickDown:
+            elif LeftStickRight and LeftStickDown and stick == "Left":
                 BRight()
-            elif LeftStickLeft:
+            elif LeftStickLeft and stick == "Left":
                 Left()
-            elif LeftStickRight:
+            elif LeftStickRight and stick == "Left":
                 Right()
-            elif LeftStickUp:
+            elif LeftStickUp and stick == "Left":
                 Forwards()
-            elif LeftStickDown:
+            elif LeftStickDown and stick == "Left":
                 Backwards()
-            elif RightStickLeft:
-                print ("Right Stick Left")
-            elif RightStickRight:
-                print ("Right Stick Right")
-            elif RightStickUp:
-                print ("Right Stick Up")
-            elif RightStickDown:
-                print ("Right Stick Down")
+            elif RightStickLeft and RightStickUp and stick == "Right":
+                FLeft()
+            elif RightStickLeft and RightStickDown and stick == "Right":
+                BLeft()
+            elif RightStickRight and RightStickUp and stick == "Right":
+                FRight()
+            elif RightStickRight and RightStickDown and stick == "Right":
+                BRight()
+            elif RightStickLeft and stick == "Right":
+                Left()
+            elif RightStickRight and stick == "Right":
+                Right()
+            elif RightStickUp and stick == "Right":
+                Forwards()
+            elif RightStickDown and stick == "Right":
+                Backwards()
             
             if HatStickLeft:
                 Left()
@@ -849,7 +908,7 @@ try:
                 print ("Hat Down")
                 Backwards()
             
-            if not LeftStickLeft and not LeftStickRight and not LeftStickUp and not LeftStickDown and not HatStickLeft and not HatStickRight and not HatStickUp and not HatStickDown:
+            if not LeftStickLeft and not LeftStickRight and not LeftStickUp and not RightStickDown and not RightStickLeft and not RightStickRight and not RightStickUp and not LeftStickDown and not HatStickLeft and not HatStickRight and not HatStickUp and not HatStickDown:
                 StopMotors()
         time.sleep(interval)
     # Disable all drives
