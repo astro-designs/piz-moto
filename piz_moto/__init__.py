@@ -25,6 +25,8 @@ from .motors import BRight
 
 __all__ = ['LED', 'LED1', 'LED2', 'Servo1', 'Servo2', 'ReadLineSensor', 'ReadRangeSensor', 'Stop', 'Forwards', 'Backwards', 'SpinLeft', 'SpinRight', 'FLeft', 'FRight', 'BLeft', 'BRight']
 
+global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
+
 # Set variables for the GPIO motor pins
 pinMotorAForwards = 10
 pinMotorABackwards = 9
@@ -73,6 +75,7 @@ GPIO.setwarnings(False)
 
 # Setup I/O for motor control pins
 def SetupMotors():
+    global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
     GPIO.setup(pinMotorAForwards, GPIO.OUT)
     GPIO.setup(pinMotorABackwards, GPIO.OUT)
     GPIO.setup(pinMotorBForwards, GPIO.OUT)
@@ -114,6 +117,7 @@ def SetupLED(Version=2.0):
 
 # Function to control speed & direction of Motor 1/A
 def Motor1(SpeedAndDirection, duration=0):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	motors.Motor1(SpeedAndDirection, pwmMotorAForwards, pwmMotorABackwards)
 	if duration > 0:
 		time.sleep(duration)
@@ -121,6 +125,7 @@ def Motor1(SpeedAndDirection, duration=0):
 	
 # Function to control speed & direction of Motor 2/B
 def Motor2(SpeedAndDirection, duration=0):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	motors.Motor2(SpeedAndDirection, pwmMotorBForwards, pwmMotorBBackwards)
 	if duration > 0:
 		time.sleep(duration)
@@ -221,10 +226,12 @@ def Servo2(Angle):
 
 # Function to stop both motors
 def Stop():
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	motors.Stop(pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards)
 
 # Backwards...
 def Backwards(Speed, duration):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.Backwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
@@ -234,6 +241,7 @@ def Backwards(Speed, duration):
 
 # Forwards...
 def Forwards(Speed, duration):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.Forwards(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
@@ -243,6 +251,7 @@ def Forwards(Speed, duration):
 
 # Spin left
 def SLeft(Speed, duration):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.SpinLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
@@ -252,6 +261,7 @@ def SLeft(Speed, duration):
 
 # Backwards and left a bit
 def BLeft(Speed, duration):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.BLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
@@ -261,6 +271,7 @@ def BLeft(Speed, duration):
 
 # Forwards and left a bit
 def FLeft(Speed, duration):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.FLeft(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
@@ -270,6 +281,7 @@ def FLeft(Speed, duration):
 
 # Spin right
 def SRight(Speed, duration):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.SpinRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
@@ -279,6 +291,7 @@ def SRight(Speed, duration):
 
 # Backwards and right a bit
 def BRight(Speed, duration):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.BRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
@@ -288,6 +301,7 @@ def BRight(Speed, duration):
 
 # Forwards and right a bit
 def FRight(Speed, duration):
+	global pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards
 	if Speed > 1: Speed = 1
 	elif Speed < 0: Speed = 0
 	motors.FRight(DCA, DCB, pwmMotorAForwards, pwmMotorABackwards, pwmMotorBForwards, pwmMotorBBackwards, Speed)
