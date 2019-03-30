@@ -24,6 +24,7 @@ Last tested with Raspbian Stretch 2017-09-07
 1) Run git clone to clone the piz-moto folder to users/pi
 
    cd ~
+   
    git clone https://github.com/astro-designs/piz-moto.git
    
 2) Run the setup program
@@ -40,9 +41,13 @@ These setup notes are based on: https://www.piborg.org/blog/rpi-ps3-help
 sudo apt-get update
 
 sudo apt-get -y install libusb-dev joystick python-pygame
+
 cd ~
+
 wget http://www.pabr.org/sixlinux/sixpair.c
+
 gcc -o sixpair sixpair.c -lusb
+
 
 Tested with a Rock Candy wireless PS3 controller and one other ultra-cheap wireless PS3 controller found on ebay.
 
@@ -91,7 +96,7 @@ tutorial/task3.py
 We've included all files, including STL files and the Sketchup model for our 3D-printed MicroPiNoon
 MicroPiNoon compatible balloon-popping robots. These are a regular feature at the Cotswold Raspberry Jam
 
-MicroPiNoon/3D_Printing - stl files
-MicroPiNoon/Bot4.jpg    - Simple render of the completed robot
+MicroPiNoon/3D_Printing         - stl files
+MicroPiNoon/Bot4.jpg            - Simple render of the completed robot
 MicroPiNoon/Instructions.txt    - Assembly instructions
 MicroPiNoon/PartsList.txt       - List of parts needed for the robot
