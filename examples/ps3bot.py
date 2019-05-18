@@ -69,7 +69,7 @@ GPIO.setup(pinMotorBBackwards, GPIO.OUT)
 
 # Set the GPIO Pin mode for the LED controls to be Output
 GPIO.setup(pinLED1, GPIO.OUT)
-GPIO.setup(pinLED1, GPIO.OUT)
+GPIO.setup(pinLED2, GPIO.OUT)
 
 # Set the pinLineFollower pin as an input so its value can be read
 GPIO.setup(pinLineFollower, GPIO.IN)
