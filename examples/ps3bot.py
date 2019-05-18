@@ -147,6 +147,19 @@ moveQuit = False
 global stick
 stick = "Left"
 
+# Flash the LEDs
+def FlashLEDs(flashes = 1, delay = 0.25):
+
+    for flash in range(0, flashes):
+        GPIO.output(pinLED1, True)
+        GPIO.output(pinLED2, True)
+        time.sleep(delay)
+        GPIO.output(pinLED1, False)
+        GPIO.output(pinLED2, False)
+        time.sleep(delay)
+
+
+
 # Needed to allow PyGame to work without a monitor
 os.environ["SDL_VIDEODRIVER"]= "dummy"
 
@@ -259,17 +272,6 @@ print(numbuttons)
 # Pause for a moment...
 time.sleep(2)
 
-
-# Flash the LEDs
-def FlashLEDs(flashes = 1, delay = 0.25):
-
-    for flash in range(0, flashes):
-        GPIO.output(pinLED1, True)
-        GPIO.output(pinLED2, True)
-        time.sleep(delay)
-        GPIO.output(pinLED1, False)
-        GPIO.output(pinLED2, False)
-        time.sleep(delay)
 
 # Turn all motors off
 def StopMotors():
