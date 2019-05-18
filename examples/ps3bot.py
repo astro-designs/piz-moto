@@ -61,21 +61,15 @@ TurnDC = 0.5
 # Define a global variable to control limit initial acceleration
 SpeedRamp = 0.5
 
-# Set the GPIO Pin mode to be Output
+# Set the GPIO Pin mode for the motor controls to be Output
 GPIO.setup(pinMotorAForwards, GPIO.OUT)
 GPIO.setup(pinMotorABackwards, GPIO.OUT)
 GPIO.setup(pinMotorBForwards, GPIO.OUT)
 GPIO.setup(pinMotorBBackwards, GPIO.OUT)
 
-#GPIO.setup(pinMotorA1, GPIO.OUT)
-#GPIO.setup(pinMotorA2, GPIO.OUT)
-#GPIO.setup(pinMotorB1, GPIO.OUT)
-#GPIO.setup(pinMotorB2, GPIO.OUT)
-
-#GPIO.output(pinMotorA1, False)
-#GPIO.output(pinMotorA2, False)
-#GPIO.output(pinMotorB1, False)
-#GPIO.output(pinMotorB2, False)
+# Set the GPIO Pin mode for the LED controls to be Output
+GPIO.setup(pinLED1, GPIO.OUT)
+GPIO.setup(pinLED1, GPIO.OUT)
 
 # Set the pinLineFollower pin as an input so its value can be read
 GPIO.setup(pinLineFollower, GPIO.IN)
