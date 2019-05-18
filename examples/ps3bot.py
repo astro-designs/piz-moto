@@ -183,6 +183,7 @@ joystick.init()
 print 'Initialised Joystick : %s' % joystick.get_name()
 
 if "Rock Candy" in joystick.get_name():
+    FlashLEDs(2,0.5)
     print ("Found Rock Candy Wireless PS3 controller")
     # pygame controller constants (Rock Candy Controller)
     JoyButton_Square = 0
@@ -210,6 +211,7 @@ if "Rock Candy" in joystick.get_name():
     JoyButton_B = 999                       # Not supported on this controller
     JoyButton_Y = 999                       # Not supported on this controller
 else:
+    FlashLEDs(3,0.5)
     print (" The other cheap Wireless PS3 controller")
     # pygame controller constants (ShanWan PC/PS3/Android)
     JoyButton_A = 0
@@ -258,6 +260,17 @@ print(numbuttons)
 time.sleep(2)
 
 
+# Flash the LEDs
+def FlashLEDs(flashes = 1, delay = 0.25):
+
+    for flash in range(0, flashes):
+        GPIO.output(pinLED1, True)
+        GPIO.output(pinLED2, True)
+        time.sleep(delay)
+        GPIO.output(pinLED1, False)
+        GPIO.output(pinLED2, False)
+        time.sleep(delay)
+
 # Turn all motors off
 def StopMotors():
     global SpeedRamp
@@ -268,13 +281,7 @@ def StopMotors():
     pwmMotorABackwards.ChangeDutyCycle(Stop)
     pwmMotorBForwards.ChangeDutyCycle(Stop)
     pwmMotorBBackwards.ChangeDutyCycle(Stop)
-    GPIO.output(pinLED1, False)
-    GPIO.output(pinLED2, False)
 
-    #GPIO.output(pinMotorA1, False)
-    #GPIO.output(pinMotorA2, False)
-    #GPIO.output(pinMotorB1, False)
-    #GPIO.output(pinMotorB2, False)
     
 # Turn both motors backwards
 def Backwards():
@@ -282,13 +289,7 @@ def Backwards():
     pwmMotorABackwards.ChangeDutyCycle(Stop)
     pwmMotorBForwards.ChangeDutyCycle(DutyCycleB)
     pwmMotorBBackwards.ChangeDutyCycle(Stop)
-    GPIO.output(pinLED1, False)
-    GPIO.output(pinLED2, False)
-    
-    #GPIO.output(pinMotorA1, False)
-    #GPIO.output(pinMotorA2, True)
-    #GPIO.output(pinMotorB1, False)
-    #GPIO.output(pinMotorB2, True)
+
 
 # Turn both motors forwards
 def Forwards():
@@ -296,13 +297,7 @@ def Forwards():
     pwmMotorABackwards.ChangeDutyCycle(DutyCycleA)
     pwmMotorBForwards.ChangeDutyCycle(Stop)
     pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB)
-    GPIO.output(pinLED1, True)
-    GPIO.output(pinLED2, True)
-    
-    #GPIO.output(pinMotorA1, True)
-    #GPIO.output(pinMotorA2, False)
-    #GPIO.output(pinMotorB1, True)
-    #GPIO.output(pinMotorB2, False)
+
 
 # Turn Right
 def Right():
@@ -313,13 +308,7 @@ def Right():
     pwmMotorABackwards.ChangeDutyCycle(DutyCycleA * TurnDC)
     pwmMotorBForwards.ChangeDutyCycle(DutyCycleB * TurnDC)
     pwmMotorBBackwards.ChangeDutyCycle(Stop)
-    GPIO.output(pinLED1, True)
-    GPIO.output(pinLED2, False)
-    
-    #GPIO.output(pinMotorA1, True)
-    #GPIO.output(pinMotorA2, False)
-    #GPIO.output(pinMotorB1, False)
-    #GPIO.output(pinMotorB2, True)
+
 
 def BLeft():
     global TurnDC
@@ -329,12 +318,7 @@ def BLeft():
     pwmMotorABackwards.ChangeDutyCycle(Stop)
     pwmMotorBForwards.ChangeDutyCycle(DutyCycleB)
     pwmMotorBBackwards.ChangeDutyCycle(Stop)
-    GPIO.output(pinLED1, True)
-    
-    #GPIO.output(pinMotorA1, True)
-    #GPIO.output(pinMotorA2, False)
-    #GPIO.output(pinMotorB1, False)
-    #GPIO.output(pinMotorB2, True)
+
 
 def FLeft():
     global TurnDC
@@ -344,12 +328,6 @@ def FLeft():
     pwmMotorABackwards.ChangeDutyCycle(DutyCycleA * TurnDC)
     pwmMotorBForwards.ChangeDutyCycle(Stop)
     pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB)
-    GPIO.output(pinLED1, True)
-    
-    #GPIO.output(pinMotorA1, True)
-    #GPIO.output(pinMotorA2, False)
-    #GPIO.output(pinMotorB1, False)
-    #GPIO.output(pinMotorB2, True)
 
 # Turn left
 def Left():
@@ -360,13 +338,6 @@ def Left():
     pwmMotorABackwards.ChangeDutyCycle(Stop)
     pwmMotorBForwards.ChangeDutyCycle(Stop)
     pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB * TurnDC)
-    GPIO.output(pinLED1, False)
-    GPIO.output(pinLED2, True)
-    
-    #GPIO.output(pinMotorA1, False)
-    #GPIO.output(pinMotorA2, True)
-    #GPIO.output(pinMotorB1, True)
-    #GPIO.output(pinMotorB2, False)
 
 def BRight():
     global TurnDC
@@ -376,12 +347,6 @@ def BRight():
     pwmMotorABackwards.ChangeDutyCycle(Stop)
     pwmMotorBForwards.ChangeDutyCycle(DutyCycleB * TurnDC)
     pwmMotorBBackwards.ChangeDutyCycle(Stop)
-    GPIO.output(pinLED1, False)
-    
-    #GPIO.output(pinMotorA1, False)
-    #GPIO.output(pinMotorA2, True)
-    #GPIO.output(pinMotorB1, True)
-    #GPIO.output(pinMotorB2, False)
 
 def FRight():
     global TurnDC
@@ -391,12 +356,6 @@ def FRight():
     pwmMotorABackwards.ChangeDutyCycle(DutyCycleA)
     pwmMotorBForwards.ChangeDutyCycle(Stop)
     pwmMotorBBackwards.ChangeDutyCycle(DutyCycleB * TurnDC)
-    GPIO.output(pinLED1, False)
-    
-    #GPIO.output(pinMotorA1, False)
-    #GPIO.output(pinMotorA2, True)
-    #GPIO.output(pinMotorB1, True)
-    #GPIO.output(pinMotorB2, False)
 
 # Return True if the line detector is over a black line
 def IsOverBlack():
@@ -442,8 +401,7 @@ def SeekLine():
                 
         # The robot has not found the black line yet, so stop
         StopMotors()
-        # Turn the LED off
-        GPIO.output(pinLED1, False)
+
 
         
         # Increase the seek count
@@ -769,6 +727,8 @@ time.sleep(0.5)
 
 try:
     print 'Press Ctrl-C to quit'
+    FlashLEDs(5)
+    
     # Loop indefinitely
     while True:
         # Get the currently pressed keys on the keyboard
