@@ -723,7 +723,7 @@ time.sleep(0.5)
 
 try:
     print 'Press Ctrl-C to quit'
-    FlashLEDs(5)
+    FlashLEDs(5,0.25)
     
     # Loop indefinitely
     while True:
@@ -788,7 +788,7 @@ try:
                 print ("A")
             elif BButton:
                 print ("B")
-            elif L1Button:
+            elif SelectButton and L1Button:
                 print ("L1")
                 if DutyCycleA < 100:
                    DutyCycleA = DutyCycleA + 10
@@ -799,7 +799,7 @@ try:
                 print "Speed: ", DutyCycleA, DutyCycleB
             elif R1Button:
                 print ("R1")
-            elif L2Button:
+            elif SelectButton and L2Button:
                 print ("L2")
                 if DutyCycleA > 0:
                    DutyCycleA = DutyCycleA - 10
