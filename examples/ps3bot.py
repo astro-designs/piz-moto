@@ -845,6 +845,24 @@ try:
             elif StartButton and XButton: 
                 print ("Start Avoidance")
                 #do_proximity()
+            elif SelectButton and L1Button:
+                #print ("L1")
+                if DutyCycleA < 100:
+                   DutyCycleA = DutyCycleA + 10
+                if DutyCycleB < 100:
+                   DutyCycleB = DutyCycleB + 10
+                DutyCycleA = min(DutyCycleA, 100)
+                DutyCycleB = min(DutyCycleB, 100)
+                print "Speed: ", DutyCycleA, DutyCycleB
+            elif SelectButton and L2Button:
+                #print ("L2")
+                if DutyCycleA > 0:
+                   DutyCycleA = DutyCycleA - 10
+                if DutyCycleB > 0:
+                   DutyCycleB = DutyCycleB - 10
+                DutyCycleA = max(DutyCycleA, 0)
+                DutyCycleB = max(DutyCycleB, 0)
+                print "Speed: ", DutyCycleA, DutyCycleB
             elif SelectButton:
                 print ("Select")
             elif StartButton:
@@ -863,26 +881,12 @@ try:
                 print ("A")
             elif BButton:
                 print ("B")
-            elif SelectButton and L1Button:
-                #print ("L1")
-                if DutyCycleA < 100:
-                   DutyCycleA = DutyCycleA + 10
-                if DutyCycleB < 100:
-                   DutyCycleB = DutyCycleB + 10
-                DutyCycleA = min(DutyCycleA, 100)
-                DutyCycleB = min(DutyCycleB, 100)
-                print "Speed: ", DutyCycleA, DutyCycleB
+            elif L1Button:
+                print ("L1")
+            elif L2Button:
+                print ("L2")
             elif R1Button:
                 print ("R1")
-            elif SelectButton and L2Button:
-                #print ("L2")
-                if DutyCycleA > 0:
-                   DutyCycleA = DutyCycleA - 10
-                if DutyCycleB > 0:
-                   DutyCycleB = DutyCycleB - 10
-                DutyCycleA = max(DutyCycleA, 0)
-                DutyCycleB = max(DutyCycleB, 0)
-                print "Speed: ", DutyCycleA, DutyCycleB
             elif R2Button:
                 print ("R2")
             elif L3Button:
