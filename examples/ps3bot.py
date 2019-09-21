@@ -1,17 +1,23 @@
 #!/usr/bin/env python2.7
-# CamJam EduKit 3 - Robotics
-# MatchBot Control
-# Line-follower
-# Proximity
-# Wii Remote Interface superseeded with...
-# Wireless PS3 controller interface
+# A program to control a two wheeled robot using a wireless PS3 controller
+# Compatible with CamJam EduKit 3 - Robotics
+# Line-follower example
+# Proximity sensor example
+
+# Note LED flashes to indicate status
+# 2 short flashes: Starting
+# 3 short flashes: Joystick found
+# 4 short flashes: Setting up joystick
+# 5 short flashes: Starting control loop
+# 10 short flashes: Exiting program
+# 10 rapid flashes: Shutting down
+
 
 import RPi.GPIO as GPIO # Import the GPIO Library
 import pygame
 import time
 import os
 import sys
-
 
 # Set the GPIO modes
 GPIO.setmode(GPIO.BCM)
@@ -23,7 +29,8 @@ pinMotorABackwards = 9
 pinMotorBForwards = 7
 pinMotorBBackwards = 8
 
-# Set additional variables for second PiZ-Moto board
+# Set additional variables for optional second motor controller board
+# Note: Not present on the Edukit3
 pinMotorCForwards = 4
 pinMotorCBackwards = 27
 pinMotorDForwards = 22
@@ -37,13 +44,16 @@ ReverseLeftMotor = False
 ReverseRightMotor = False
 
 # Set variables for the line detector GPIO pin
+# Edukit3 compatible
 pinLineFollower = 25
 
-# Define GPIO pins to use on the Pi
+# Set variable for the proximity sensor interface
+# Edukit3 compatible
 pinTrigger = 17
 pinEcho = 18
 
 # Set variable for the LED pin
+# Note: Not present on the Edukit3
 pinLED1 = 5
 pinLED2 = 6
 
@@ -57,9 +67,6 @@ Stop = 0
 
 # Define a global variable to define a slower speed for turning
 TurnDC = 0.5
-
-# Define a global variable to control limit initial acceleration
-SpeedRamp = 0.5
 
 # Set the GPIO Pin mode for the motor controls to be Output
 GPIO.setup(pinMotorAForwards, GPIO.OUT)
@@ -142,7 +149,7 @@ global stick
 stick = "Left"
 
 # Flash the LEDs
-def FlashLEDs(flashes = 1, delay = 0.25):
+def FlashLEDs(flashes = 1, delay = 0.25, pause = 1.00):
 
     for flash in range(0, flashes):
         GPIO.output(pinLED1, True)
@@ -152,7 +159,11 @@ def FlashLEDs(flashes = 1, delay = 0.25):
         GPIO.output(pinLED2, False)
         time.sleep(delay)
 
+    time.sleep(pause)
 
+# Flash LED twice to indicate program has started
+FlashLEDs(2,0.5, 1.00)
+print ("Starting...")
 
 # Needed to allow PyGame to work without a monitor
 os.environ["SDL_VIDEODRIVER"]= "dummy"
@@ -166,8 +177,7 @@ while True:
             pygame.joystick.init()
             # Attempt to setup the joystick
             if pygame.joystick.get_count() < 1:
-                # No joystick attached, toggle the LED
-                #ZB.SetLed(not ZB.GetLed())
+                # No joystick attached
                 pygame.joystick.quit()
                 time.sleep(0.1)
             else:
@@ -175,36 +185,42 @@ while True:
                 joystick = pygame.joystick.Joystick(0)
                 break
         except pygame.error:
-            # Failed to connect to the joystick, toggle the LED
-            #ZB.SetLed(not ZB.GetLed())
+            # Failed to connect to the joystick
             pygame.joystick.quit()
             time.sleep(0.1)
     except KeyboardInterrupt:
         # CTRL+C exit, give up
         print '\nUser aborted'
-        #ZB.SetLed(True)
+        FlashLEDs(10,0.5,1.0)
         sys.exit()
-print 'Joystick found'
+		
+# Flash LED three times to indicate joystick found
+FlashLEDs(3,0.5, 1.00)
+print ("Joystick found")
 joystick.init()
 
 print 'Initialised Joystick : %s' % joystick.get_name()
 
 if "Rock Candy" in joystick.get_name():
-    FlashLEDs(2,0.5)
+    FlashLEDs(4,0.5, 1.00)
     print ("Found Rock Candy Wireless PS3 controller")
     # pygame controller constants (Rock Candy Controller)
     JoyButton_Square = 0
-    JoyButton_X = 1
     JoyButton_Circle = 2
     JoyButton_Triangle = 3
+    JoyButton_X = 1
+    JoyButton_Y = 999                       # Not supported on this controller
+    JoyButton_A = 999                       # Not supported on this controller
+    JoyButton_B = 999                       # Not supported on this controller
     JoyButton_L1 = 4
     JoyButton_R1 = 5
     JoyButton_L2 = 6
     JoyButton_R2 = 7
-    JoyButton_Select = 8
-    JoyButton_Start = 9
     JoyButton_L3 = 10
     JoyButton_R3 = 11
+    JoyButton_Select = 8
+    JoyButton_Start = 9
+    JoyButton_Analog = 999                  # Not supported on this controller
     JoyButton_Home = 12
     axisUpDown = 1                          # Joystick axis to read for up / down position
     RightaxisUpDown = 3                     # Joystick axis to read for up / down position
@@ -212,15 +228,77 @@ if "Rock Candy" in joystick.get_name():
     axisLeftRight = 0                       # Joystick axis to read for left / right position
     RightaxisLeftRight = 2                  # Joystick axis to read for left / right position
     axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
-    # These buttons do not exist for this controller...
-    # So map to compatible positions
+    axisPosThreshold = 0.7                  # Controls the sensitivity of the joystick
+    axisNegThreshold = -0.7                 # Controls the sensitivity of the joystick
+
+elif "ShanWan" in joystick.get_name():
+    FlashLEDs(4,0.5, 1.00)
+    print ("Found ShanWan PS3 controller clone")
+    # pygame controller constants (ShanWan PC/PS3/Android)
+    JoyButton_Square = 999                  # Not supported on this controller
+    JoyButton_Circle = 999                  # Not supported on this controller
+    JoyButton_Triangle = 999                # Not supported on this controller
+    JoyButton_A = 0
+    JoyButton_B = 1
+    JoyButton_X = 3
+    JoyButton_Y = 4
+    JoyButton_R1 = 7
+    JoyButton_L1 = 6
+    JoyButton_R2 = 9
+    JoyButton_L2 = 8
+    JoyButton_L3 = 13
+    JoyButton_R3 = 14
+    JoyButton_Select = 10
+    JoyButton_Start = 11
+    JoyButton_Analog = 999                  # Not supported on this controller
+    JoyButton_Home = 999                    # Not supported on this controller
+    axisUpDown = 1                          # Joystick axis to read for up / down position
+    RightaxisUpDown = 3                     # Joystick axis to read for up / down position
+    axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
+    axisLeftRight = 0                       # Joystick axis to read for left / right position
+    RightaxisLeftRight = 2                  # Joystick axis to read for left / right position
+    axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
+    axisPosThreshold = 0.7                  # Controls the sensitivity of the joystick
+    axisNegThreshold = -0.7                 # Controls the sensitivity of the joystick
+
+elif "hongjingda" in joystick.get_name():
+    FlashLEDs(4,0.5, 1.00)
+    print ("Found PiHut PS3 controller clone")
+    # pygame controller constants (hongjingda HJD-X)
+    JoyButton_Square = 3
+    JoyButton_Circle = 1
+    JoyButton_Triangle = 4
+    JoyButton_X = 0
     JoyButton_A = 999                       # Not supported on this controller
     JoyButton_B = 999                       # Not supported on this controller
     JoyButton_Y = 999                       # Not supported on this controller
+    JoyButton_R1 = 7
+    JoyButton_L1 = 6
+    JoyButton_R2 = 9
+    JoyButton_L2 = 8
+    JoyButton_L3 = 13
+    JoyButton_R3 = 14
+    JoyButton_Select = 10
+    JoyButton_Start = 11
+    JoyButton_Analog = 12
+    JoyButton_Home = 999                    # Not supported on this controller
+    axisUpDown = 1                          # Joystick axis to read for up / down position
+    RightaxisUpDown = 3                     # Joystick axis to read for up / down position
+    axisUpDownInverted = False              # Set this to True if up and down appear to be swapped
+    axisLeftRight = 0                       # Joystick axis to read for left / right position
+    RightaxisLeftRight = 2                  # Joystick axis to read for left / right position
+    axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
+    axisPosThreshold = 0.7                  # Controls the sensitivity of the joystick
+    axisNegThreshold = -0.7                 # Controls the sensitivity of the joystick
+    # These buttons do not exist for this controller...
+
 else:
-    FlashLEDs(3,0.5)
-    print (" The other cheap Wireless PS3 controller")
-    # pygame controller constants (ShanWan PC/PS3/Android)
+    FlashLEDs(4,0.5, 1.00)
+    print ("Found UNKNOWN Wireless PS3 controller")
+    # pygame controller constants (Not Recognised - assuming it's a simple PS3 clone...)
+    JoyButton_Square = 999                  # Not supported on this controller
+    JoyButton_Circle = 999                  # Not supported on this controller
+    JoyButton_Triangle = 999                # Not supported on this controller
     JoyButton_A = 0
     JoyButton_B = 1
     JoyButton_X = 3
@@ -231,6 +309,8 @@ else:
     JoyButton_L2 = 8
     JoyButton_Select = 10
     JoyButton_Start = 11
+    JoyButton_Analog = 999
+    JoyButton_Home = 999                    # Not supported on this controller
     JoyButton_L3 = 13
     JoyButton_R3 = 14
     axisUpDown = 1                          # Joystick axis to read for up / down position
@@ -239,29 +319,27 @@ else:
     axisLeftRight = 0                       # Joystick axis to read for left / right position
     RightaxisLeftRight = 2                  # Joystick axis to read for left / right position
     axisLeftRightInverted = False           # Set this to True if left and right appear to be swapped
-    # These buttons do not exist for this controller...
-    JoyButton_Square = 999                  # Not supported on this controller
-    JoyButton_Circle = 999                  # Not supported on this controller
-    JoyButton_Triangle = 999                # Not supported on this controller
-    JoyButton_Home = 999                    # Not supported on this controller
+    axisPosThreshold = 0.7                  # Controls the sensitivity of the joystick
+    axisNegThreshold = -0.7                 # Controls the sensitivity of the joystick
 
 
 # Check number of joysticks in use...
 joystick_count = pygame.joystick.get_count()
-print("joystick_count")
+print("Joystick count:")
 print(joystick_count)
-print("--------------")
+print("---------------")
 
 # Check number of axes on joystick...
 numaxes = joystick.get_numaxes()
-print("numaxes")
+print("Number of axes:")
 print(numaxes)
-print("--------------")
+print("---------------")
 
 # Check number of buttons on joystick...
 numbuttons = joystick.get_numbuttons()
-print("numbuttons")
+print("Number of buttons:")
 print(numbuttons)
+print("---------------")
 
 # Pause for a moment...
 time.sleep(2)
@@ -269,10 +347,6 @@ time.sleep(2)
 
 # Turn all motors off
 def StopMotors():
-    global SpeedRamp
-
-    SpeedRamp = 0.5
-
     pwmMotorAForwards.ChangeDutyCycle(Stop)
     pwmMotorABackwards.ChangeDutyCycle(Stop)
     pwmMotorBForwards.ChangeDutyCycle(Stop)
@@ -397,8 +471,6 @@ def SeekLine():
                 
         # The robot has not found the black line yet, so stop
         StopMotors()
-
-
         
         # Increase the seek count
         SeekCount += 1
@@ -411,17 +483,12 @@ def SeekLine():
 
 
 def do_linefollower():
-    global SpeedRamp
-
     #repeat the next indented block forever
     print("Following the line")
     KeepTrying = True
     while KeepTrying == True:
         # If the sensor is Low (=0), it's above the black line
         if IsOverBlack():
-            SpeedRamp = SpeedRamp + 0.05
-            if SpeedRamp > 1:
-                SpeedRamp = 1
             Forwards()
             time.sleep(0.2)
             # If not (else), print the following
@@ -643,48 +710,48 @@ def PygameHandler(events):
             if axisLeftRightInverted:
                 leftRight = -leftRight
             # Determine Up / Down values for Left Stick
-            if upDown < -0.5:
-                print ("LeftStickUp")
+            if upDown < axisNegThreshold:
+                #print ("LeftStickUp")
                 LeftStickUp = True
                 LeftStickDown = False
-            elif upDown > 0.5:
-                print ("LeftStickDown")
+            elif upDown > axisPosThreshold:
+                #print ("LeftStickDown")
                 LeftStickUp = False
                 LeftStickDown = True
             else:
                 LeftStickUp = False
                 LeftStickDown = False
             # Determine Up / Down values for Right Stick
-            if RightUpDown < -0.5:
-                print ("RightStickUp")
+            if RightUpDown < axisNegThreshold:
+                #print ("RightStickUp")
                 RightStickUp = True
                 RightStickDown = False
-            elif RightUpDown > 0.5:
-                print ("RightStickDown")
+            elif RightUpDown > axisPosThreshold:
+                #print ("RightStickDown")
                 RightStickUp = False
                 RightStickDown = True
             else:
                 RightStickUp = False
                 RightStickDown = False
             # Determine Left / Right values for Left Stick
-            if leftRight < -0.5:
-                print ("LeftStickLeft")
+            if leftRight < axisNegThreshold:
+                #print ("LeftStickLeft")
                 LeftStickLeft = True
                 LeftStickRight = False
-            elif leftRight > 0.5:
-                print ("LeftStickRight")
+            elif leftRight > axisPosThreshold:
+                #print ("LeftStickRight")
                 LeftStickLeft = False
                 LeftStickRight = True
             else:
                 LeftStickLeft = False
                 LeftStickRight = False
             # Determine Left / Right values for Right Stick
-            if RightLeftRight < -0.5:
-                print ("RightStickLeft")
+            if RightLeftRight < axisNegThreshold:
+                #print ("RightStickLeft")
                 RightStickLeft = True
                 RightStickRight = False
-            elif RightLeftRight > 0.5:
-                print ("RightStickRight")
+            elif RightLeftRight > axisPosThreshold:
+                #print ("RightStickRight")
                 RightStickLeft = False
                 RightStickRight = True
             else:
@@ -692,7 +759,6 @@ def PygameHandler(events):
                 RightStickRight = False
 
         
-print("Starting PS3Bot - entering control loop...")
 
 # Set the GPIO to software PWM at 'Frequency' Hertz
 pwmMotorAForwards = GPIO.PWM(pinMotorAForwards, Frequency)
@@ -722,8 +788,9 @@ time.sleep(0.5)
 
 
 try:
+    print("Entering control loop...")
     print 'Press Ctrl-C to quit'
-    FlashLEDs(5,0.25)
+    FlashLEDs(5,0.5,1.0)
     
     # Loop indefinitely
     while True:
@@ -742,24 +809,32 @@ try:
                 break
             elif SelectButton and BButton: # Shutdown
                 print ("Halting Raspberry Pi...")
+                FlashLEDs(10,0.25,1.0)
                 GPIO.cleanup()
                 bashCommand = ("sudo halt")
                 os.system(bashCommand)
                 break
             elif SelectButton and TriangleButton: # Reboot
                 print ("Rebooting Raspberry Pi...")
+                FlashLEDs(10,0.25,1.0)
                 GPIO.cleanup()
                 bashCommand = ("sudo reboot now")
                 os.system(bashCommand)
                 break
             elif SelectButton and YButton: # Reboot
                 print ("Rebooting Raspberry Pi...")
+                FlashLEDs(10,0.25,1.0)
                 GPIO.cleanup()
                 bashCommand = ("sudo reboot now")
                 os.system(bashCommand)
                 break
             elif SelectButton and XButton: # Exit
                 print ("Exiting program...")
+                FlashLEDs(10,0.5,1.0)
+                break
+            elif SelectButton and AButton: # Exit
+                print ("Exiting program...")
+                FlashLEDs(10,0.5,1.0)
                 break
             elif StartButton and CircleButton: 
                 print ("Start Line-follower")
@@ -770,10 +845,10 @@ try:
             elif StartButton and XButton: 
                 print ("Start Avoidance")
                 #do_proximity()
-            #elif SelectButton:
-            #    print ("Select")
-            #elif StartButton:
-            #    print ("Start")
+            elif SelectButton:
+                print ("Select")
+            elif StartButton:
+                print ("Start")
             elif SquareButton:
                 print ("Square")
             elif XButton:
@@ -789,7 +864,7 @@ try:
             elif BButton:
                 print ("B")
             elif SelectButton and L1Button:
-                print ("L1")
+                #print ("L1")
                 if DutyCycleA < 100:
                    DutyCycleA = DutyCycleA + 10
                 if DutyCycleB < 100:
@@ -800,7 +875,7 @@ try:
             elif R1Button:
                 print ("R1")
             elif SelectButton and L2Button:
-                print ("L2")
+                #print ("L2")
                 if DutyCycleA > 0:
                    DutyCycleA = DutyCycleA - 10
                 if DutyCycleB > 0:
@@ -811,11 +886,11 @@ try:
             elif R2Button:
                 print ("R2")
             elif L3Button:
-                print ("L3")
+                #print ("L3")
                 print "Switching to Left Stick"
                 stick = "Left"
             elif R3Button:
-                print ("R3")
+                #print ("R3")
                 print "Switching to Right Stick"
                 stick = "Right"
             elif LeftStickLeft and LeftStickUp and stick == "Left":
@@ -872,5 +947,6 @@ try:
 # If you press CTRL+C, cleanup and stop
 except KeyboardInterrupt:
     # Reset GPIO settings
+    FlashLEDs(10,0.5,1.0)
     GPIO.cleanup()
             
